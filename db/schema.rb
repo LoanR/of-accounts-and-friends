@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923141937) do
+ActiveRecord::Schema.define(version: 20160923153226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,14 @@ ActiveRecord::Schema.define(version: 20160923141937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_credits_on_account_id", using: :btree
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.integer  "account_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_friends_on_account_id", using: :btree
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -71,6 +79,7 @@ ActiveRecord::Schema.define(version: 20160923141937) do
   end
 
   add_foreign_key "credits", "accounts"
+  add_foreign_key "friends", "accounts"
   add_foreign_key "transactions", "accounts"
   add_foreign_key "user_account_links", "accounts"
   add_foreign_key "user_account_links", "users"
