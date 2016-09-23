@@ -10,10 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923102035) do
+ActiveRecord::Schema.define(version: 20160923141937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.integer  "account_id"
+    t.date     "date"
+    t.float    "amount"
+    t.string   "creditor"
+    t.string   "debtor"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_credits_on_account_id", using: :btree
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "account_id"
+    t.date     "date"
+    t.float    "amount"
+    t.string   "creditor"
+    t.text     "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id", using: :btree
+  end
+
+  create_table "user_account_links", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "account_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_user_account_links_on_account_id", using: :btree
+    t.index ["user_id"], name: "index_user_account_links_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,4 +70,8 @@ ActiveRecord::Schema.define(version: 20160923102035) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "credits", "accounts"
+  add_foreign_key "transactions", "accounts"
+  add_foreign_key "user_account_links", "accounts"
+  add_foreign_key "user_account_links", "users"
 end
