@@ -5,6 +5,8 @@ class PagesController < ApplicationController
   end
 
   def dashboard
+    @boards = current_user.user_boards
+    @new_board = Board.new
   end
 
 end

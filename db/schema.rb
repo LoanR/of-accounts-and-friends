@@ -16,13 +16,22 @@ ActiveRecord::Schema.define(version: 20160923153226) do
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "board_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_accounts_on_board_id", using: :btree
+    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
+  end
+
+  create_table "boards", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "credits", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "board_id"
     t.date     "date"
     t.float    "amount"
     t.string   "creditor"
@@ -30,35 +39,26 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_credits_on_account_id", using: :btree
+    t.index ["board_id"], name: "index_credits_on_board_id", using: :btree
   end
 
   create_table "friends", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "board_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_friends_on_account_id", using: :btree
+    t.index ["board_id"], name: "index_friends_on_board_id", using: :btree
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "account_id"
+    t.integer  "board_id"
     t.date     "date"
     t.float    "amount"
     t.string   "creditor"
     t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_transactions_on_account_id", using: :btree
-  end
-
-  create_table "user_account_links", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "account_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_user_account_links_on_account_id", using: :btree
-    t.index ["user_id"], name: "index_user_account_links_on_user_id", using: :btree
+    t.index ["board_id"], name: "index_transactions_on_board_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,9 +78,9 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "credits", "accounts"
-  add_foreign_key "friends", "accounts"
-  add_foreign_key "transactions", "accounts"
-  add_foreign_key "user_account_links", "accounts"
-  add_foreign_key "user_account_links", "users"
+  add_foreign_key "accounts", "boards"
+  add_foreign_key "accounts", "users"
+  add_foreign_key "credits", "boards"
+  add_foreign_key "friends", "boards"
+  add_foreign_key "transactions", "boards"
 end

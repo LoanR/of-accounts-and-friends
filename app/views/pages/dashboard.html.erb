@@ -1,2 +1,12 @@
 <h1>Pages#dashboard</h1>
 <p>Find me in app/views/pages/dashboard.html.erb</p>
+
+<% @boards.each do |board| %>
+  <%= board.title %>
+<% end %>
+
+<%= simple_form_for(@new_board) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title %>
+  <%= f.button :submit, value: "create table" %>
+<% end %>

@@ -1,5 +1,5 @@
 class Friend < ApplicationRecord
-  belongs_to :account
+  belongs_to :board
 
   validates :name, presence: true
 

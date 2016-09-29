@@ -29,8 +29,8 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "pages#dashboard"
 
-  resources :user_account_links, only: [:index] # ???
-  resources :accounts, only: [:show, :create, :destroy] do
+  resources :accounts, only: [:index] # ???
+  resources :boards, only: [:show, :create, :destroy] do
     resources :transactions, only: [:create, :destroy]
     resources :credits, only: [:create, :destroy]
     resources :friends, only: [:create, :destroy]

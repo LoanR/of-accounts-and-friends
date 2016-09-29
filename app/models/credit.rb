@@ -1,5 +1,5 @@
 class Credit < ApplicationRecord
-  belongs_to :account
+  belongs_to :board
 
   # validates :creditor, presence: true
   # validates :debtor, presence: true
