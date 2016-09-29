@@ -1,4 +1,4 @@
-class CreditController < ApplicationController
+class CreditsController < ApplicationController
   def create
   end
 
