@@ -2,11 +2,11 @@
 <p>Find me in app/views/pages/dashboard.html.erb</p>
 
 <% @boards.each do |board| %>
-  <%= board.title %>
+  <%= link_to "#{board.title}", board %>
 <% end %>
 
 <%= simple_form_for(@new_board) do |f| %>
   <%= f.error_notification %>
   <%= f.input :title %>
-  <%= f.button :submit, value: "create table" %>
+  <%= f.button :submit, "create table" %>
 <% end %>

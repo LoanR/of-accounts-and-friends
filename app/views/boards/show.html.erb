@@ -2,3 +2,18 @@
 <p>Find me in app/views/account/show.html.erb</p>
 <%= @current_board.title %>
 
+<!-- <form action="#" method="post">
+  <div>
+    <label for="msg">Message:</label>
+    <textarea id="msg" name="user_message"></textarea>
+  </div>
+  <div class="button">
+    <button type="submit">Send your message</button>
+  </div>
+</form> -->
+
+<%= simple_form_for @new_account, method: :post do |f| %>
+  <%= f.input :board, :input_html => { value: "#{@current_board.id}" } %>
+  <%= f.input :user %>
+  <%= f.button :submit, "Give access" %>
+<% end %>

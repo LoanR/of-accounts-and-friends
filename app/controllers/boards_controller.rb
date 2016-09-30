@@ -1,14 +1,12 @@
 class BoardsController < ApplicationController
+  before_action :find_board, only: [:show]
+
   def index
   end
 
   def show
-    current_board = Board.find_by_id(params[:id])
-    if current_board.authorized_user?(current_user)
-      @current_board = current_board
-    else
-      redirect_to root_path
-    end
+    @new_account = Account.new
+    # @new_account.board_id = @current_board.id
   end
 
   def create
@@ -28,6 +26,15 @@ class BoardsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:title)
+  end
+
+  def find_board
+    current_board = Board.find_by_id(params[:id])
+    if current_board.authorized_user?(current_user)
+      @current_board = current_board
+    else
+      redirect_to root_path
+    end
   end
 
 end
