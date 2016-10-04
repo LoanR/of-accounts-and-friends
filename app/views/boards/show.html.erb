@@ -1,19 +1,20 @@
-<h1>Account#show</h1>
-<p>Find me in app/views/account/show.html.erb</p>
-<%= @current_board.title %>
+<h3><%= @current_board.title %></h3>
 
-<!-- <form action="#" method="post">
-  <div>
-    <label for="msg">Message:</label>
-    <textarea id="msg" name="user_message"></textarea>
-  </div>
-  <div class="button">
-    <button type="submit">Send your message</button>
-  </div>
-</form> -->
+<% @current_board.users.each do |user| %>
+  <%= user.username %>
+<% end %>
 
 <%= simple_form_for @new_account, method: :post do |f| %>
-  <%= f.input :board, :input_html => { value: "#{@current_board.id}" } %>
+  <%= f.input :board,as: :hidden, :input_html => { value: "#{@current_board.id}" } %>
   <%= f.input :user %>
   <%= f.button :submit, "Give access" %>
+<% end %>
+
+<% @current_board.friends.each do |friend| %>
+  <%= friend.name %>
+<% end %>
+
+<%= simple_form_for [@current_board, @new_friend], method: :post do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit, "Add friend" %>
 <% end %>

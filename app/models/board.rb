@@ -1,5 +1,7 @@
 class Board < ApplicationRecord
+  has_many :accounts
   has_many :users, through: :accounts
+  has_many :friends
   has_many :credits
   has_many :transactions
 
