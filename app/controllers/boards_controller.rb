@@ -6,6 +6,7 @@ class BoardsController < ApplicationController
 
   def show
     @new_account = Account.new
+    @new_friend = Friend.new
     # @new_account.board_id = @current_board.id
   end
 
@@ -29,7 +30,7 @@ class BoardsController < ApplicationController
   end
 
   def find_board
-    current_board = Board.find_by_id(params[:id])
+    current_board = Board.find(params[:id])
     if current_board.authorized_user?(current_user)
       @current_board = current_board
     else
