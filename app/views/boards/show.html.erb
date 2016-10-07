@@ -18,3 +18,17 @@
   <%= f.input :name %>
   <%= f.button :submit, "Add friend" %>
 <% end %>
+<ul>
+  <% @current_board.transactions.each do |transaction| %>
+  <li>
+    <%= transaction.creditor %> paid <%= transaction.amount %>
+  </li>
+  <% end %>
+
+</ul>
+
+<%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
+    <%= f.input :creditor %>
+    <%= f.input :amount %>
+    <%= f.button :submit, "Add" %>
+<% end %>
