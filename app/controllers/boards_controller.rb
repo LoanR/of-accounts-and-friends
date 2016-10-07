@@ -7,7 +7,7 @@ class BoardsController < ApplicationController
   def show
     @new_account = Account.new
     @new_friend = Friend.new
-    # @new_account.board_id = @current_board.id
+    @new_transaction = Transaction.new
   end
 
   def create
