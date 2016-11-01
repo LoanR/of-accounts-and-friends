@@ -16,6 +16,7 @@ class TransactionsController < ApplicationController
     end
   end
 
+
   def destroy
   end
 
