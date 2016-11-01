@@ -10,6 +10,7 @@ class TransactionsController < ApplicationController
     @new_transaction.comment = transaction_params[:comment]
     @new_transaction.save
     if @new_transaction.save
+      # raise
       redirect_to current_board
     else
       redirect_to root_path
