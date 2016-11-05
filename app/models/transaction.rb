@@ -1,8 +1,8 @@
 class Transaction < ApplicationRecord
+  belongs_to :payer, class_name: 'Friend'
   belongs_to :board
-  # belongs_to :payer, through: :board, source: :friends
 
-  # validates :payer, presence: true
+  validates :payer, presence: true
   validates :amountint, presence: true
 
   def amount
