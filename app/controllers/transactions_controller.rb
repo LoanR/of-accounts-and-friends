@@ -4,8 +4,9 @@ class TransactionsController < ApplicationController
     @new_transaction = Transaction.new
     current_board = Board.find(params[:board_id])
     @new_transaction.board = current_board
-    @new_transaction.creditor = transaction_params[:creditor]
-    @new_transaction.amount = transaction_params[:amount].to_i
+    # @new_transaction.payer = transaction_params[:payer]
+    @new_transaction.amountint = transaction_params[:amountint].to_i
+    @new_transaction.amountdec = transaction_params[:amountdec].to_i
     @new_transaction.date = transaction_params[:date]
     @new_transaction.comment = transaction_params[:comment]
     @new_transaction.save
@@ -23,7 +24,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:creditor, :amount, :date, :comment)
+    params.require(:transaction).permit(:payer, :amountint, :amountdec, :date, :comment)
   end
 
 end

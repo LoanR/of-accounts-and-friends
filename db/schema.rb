@@ -32,14 +32,17 @@ ActiveRecord::Schema.define(version: 20160923153226) do
 
   create_table "credits", force: :cascade do |t|
     t.integer  "board_id"
+    t.integer  "creditor_id"
+    t.integer  "debtor_id"
     t.date     "date"
-    t.float    "amount"
-    t.string   "creditor"
-    t.string   "debtor"
+    t.integer  "amountint"
+    t.integer  "amountdec"
     t.text     "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.index ["board_id"], name: "index_credits_on_board_id", using: :btree
+    t.index ["creditor_id"], name: "index_credits_on_creditor_id", using: :btree
+    t.index ["debtor_id"], name: "index_credits_on_debtor_id", using: :btree
   end
 
   create_table "friends", force: :cascade do |t|
@@ -53,8 +56,8 @@ ActiveRecord::Schema.define(version: 20160923153226) do
   create_table "transactions", force: :cascade do |t|
     t.integer  "board_id"
     t.date     "date"
-    t.float    "amount"
-    t.string   "creditor"
+    t.integer  "amountint"
+    t.integer  "amountdec"
     t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

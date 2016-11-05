@@ -21,7 +21,7 @@
 <ul>
   <% @current_board.transactions.each do |transaction| %>
     <li>
-      <%= transaction.creditor %> paid <%= transaction.amount %>
+      X paid <%= transaction.amount %>
       <%= transaction.date if transaction.date %>
       <%= transaction.comment if transaction.comment %>
     </li>
@@ -29,8 +29,9 @@
 </ul>
 
 <%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
-    <%= f.input :creditor %>
-    <%= f.input :amount %>
+
+    <%= f.input :amountint %>
+    <%= f.input :amountdec %>
     <%= f.input :date, start_year: Date.today.year - 10, end_year: Date.today.year %>
     <%= f.input :comment %>
     <%= f.button :submit, "Add" %>

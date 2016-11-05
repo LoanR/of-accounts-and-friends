@@ -2,10 +2,11 @@ class CreateCredits < ActiveRecord::Migration[5.0]
   def change
     create_table :credits do |t|
       t.references :board, foreign_key: true
+      t.references :creditor
+      t.references :debtor
       t.date :date
-      t.float :amount
-      t.string :creditor
-      t.string :debtor
+      t.integer :amountint
+      t.integer :amountdec
       t.text :comment
 
       t.timestamps
