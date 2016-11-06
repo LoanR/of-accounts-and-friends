@@ -4,18 +4,13 @@ class TransactionsController < ApplicationController
     @new_transaction = Transaction.new
     current_board = Board.find(params[:board_id])
     @new_transaction.board = current_board
-    # @new_transaction.payer = transaction_params[:payer]
+    @new_transaction.payer = Friend.find(transaction_params[:payer])
     @new_transaction.amountint = transaction_params[:amountint].to_i
     @new_transaction.amountdec = transaction_params[:amountdec].to_i
     @new_transaction.date = transaction_params[:date]
     @new_transaction.comment = transaction_params[:comment]
+    # raise
     @new_transaction.save
-    if @new_transaction.save
-      # raise
-      redirect_to current_board
-    else
-      redirect_to root_path
-    end
   end
 
   def destroy

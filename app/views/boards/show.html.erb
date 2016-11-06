@@ -31,10 +31,11 @@
 </ul>
 
 <%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
-  <%= f.input :payer, collection: @current_board.friends, as: :radio_buttons %>
+  <%= f.input :payer, collection: @current_board.friends %>
   <%= f.input :amountint %>
   <%= f.input :amountdec %>
-  <%= f.input :date, start_year: Date.today.year - 10, end_year: Date.today.year %>
+  <%= f.input :date, as: :string, include_blank: :true, input_html: { id: "datepicker" } %>
   <%= f.input :comment %>
   <%= f.button :submit, "Add" %>
 <% end %>
+
