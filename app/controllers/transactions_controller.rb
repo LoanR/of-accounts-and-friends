@@ -11,11 +11,6 @@ class TransactionsController < ApplicationController
     @new_transaction.comment = transaction_params[:comment]
     # raise
     @new_transaction.save
-    if @new_transaction.save
-      redirect_to current_board
-    else
-      redirect_to root_path
-    end
   end
 
   def destroy
