@@ -8,6 +8,7 @@ class BoardsController < ApplicationController
     @new_account = Account.new
     @new_friend = Friend.new
     @new_transaction = Transaction.new
+    @new_credit = Credit.new
   end
 
   def create
