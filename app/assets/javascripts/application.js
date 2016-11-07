@@ -6,7 +6,7 @@
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.fr.js
 
 $(document).ready(function(){
-  $('#datepicker').datepicker({
+  $('.datepicker').datepicker({
     format: "dd/mm/yyyy",
     endDate: 0,
     maxViewMode: 2,

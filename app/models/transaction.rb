@@ -4,7 +4,7 @@ class Transaction < ApplicationRecord
 
   validates :payer, presence: true
   validates :amountint, presence: true
-  validates :date, presence: true
+  # validates :date, presence: true
 
   def amount
     dec = 0.0
