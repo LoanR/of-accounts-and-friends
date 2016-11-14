@@ -3,7 +3,12 @@ class Transaction < ApplicationRecord
   belongs_to :board
 
   validates :payer, presence: true
-  validates :amountint, presence: true
+  validates_numericality_of :amountint, allow_nil: true
+  validates_numericality_of :amountdec, allow_nil: true
+  validates_length_of :amountdec, maximum: 2
+
+  validate :money_or_cents
+
   # validates :date, presence: true
 
   def amount
@@ -11,6 +16,14 @@ class Transaction < ApplicationRecord
     self.amountdec ? dec = self.amountdec : dec = 0.0
     dec /= 100.0
     amount = self.amountint + dec
+  end
+
+  private
+
+  def money_or_cents
+    if amountint == 0 && amountdec == 0
+      errors.add(:base, "The transaction is missing a value")
+    end
   end
 
 end
