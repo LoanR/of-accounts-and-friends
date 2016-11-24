@@ -55,6 +55,5 @@
   <%= f.button :submit, "Add" %>
 <% end %>
 
-<% content_for :bottom do %>
-  <%= subscribe_to board_path(@current_board) %>
-<% end %>
+<%= subscribe_to @path %>
+

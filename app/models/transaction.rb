@@ -18,6 +18,14 @@ class Transaction < ApplicationRecord
     amount = self.amountint + dec
   end
 
+  def div_class
+    c = ''
+    if self.date
+      c = self.date.year.to_s + self.date.month.to_s + self.date.day.to_s
+    end
+    c
+  end
+
   private
 
   def money_or_cents
