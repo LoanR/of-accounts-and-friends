@@ -1,0 +1,9 @@
+<% publish_to @path do %>
+  var id = "transactions_content_<%= @new_transaction.board.id %>"
+  if (<%= @new_transaction.date %>) {
+    var date = <%= @new_transaction.date.year %><%= @new_transaction.date.month %><%= @new_transaction.date.day %>;
+    console.log(date);
+  }
+  $('#'+id).append("<%= j render(@new_transaction) %>");
+<% end %>
+console.log('after create.js.erb')

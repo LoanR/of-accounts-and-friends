@@ -11,6 +11,18 @@ class TransactionsController < ApplicationController
     @new_transaction.comment = transaction_params[:comment]
     # raise
     @new_transaction.save
+    @path = board_path(current_board)
+    # raise
+    # @new_transaction = Transaction.create!(params[:transaction])
+    # @new_transaction = Transaction.create!(
+    #   board: Board.find(params[:board_id]),
+    #   payer: Friend.find(transaction_params[:payer]),
+    #   amountdec: transaction_params[:amountdec].to_i,
+    #   amountint: transaction_params[:amountint].to_i,
+    #   date: transaction_params[:date],
+    #   comment: transaction_params[:comment]
+    # )
+    # PrivatePub.publish_to(@path, "alert('#{@new_transaction.payer.name}');")
   end
 
   def destroy

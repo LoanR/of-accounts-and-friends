@@ -1,0 +1,5 @@
+<li data-date-sort="<%= transaction.div_class %>">
+  <%= transaction.payer.name %> paid <%= transaction.amount %>
+  <%= transaction.date if transaction.date %>
+  <%= transaction.comment if transaction.comment %>
+</li>

@@ -9,6 +9,7 @@ class BoardsController < ApplicationController
     @new_friend = Friend.new
     @new_transaction = Transaction.new
     @new_credit = Credit.new
+    @path = board_path(@current_board)
   end
 
   def create

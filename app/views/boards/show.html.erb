@@ -18,15 +18,13 @@
   <%= f.input :name %>
   <%= f.button :submit, "Add friend" %>
 <% end %>
-<ul>
-  <% @current_board.transactions.order(:date, :created_at).each do |transaction| %>
-    <li>
-      <%= transaction.payer.name %> paid <%= transaction.amount %>
-      <%= transaction.date if transaction.date %>
-      <%= transaction.comment if transaction.comment %>
-    </li>
+
+<% @transactions_content_id = "transactions_content_#{@current_board.id}" %>
+<div id="<%= @transactions_content_id %>">
+  <% if @current_board.transactions.any? %>
+    <%= render @current_board.transactions.order(:date, :created_at) %>
   <% end %>
-</ul>
+</div>
 
 <%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
   <%= f.input :payer, collection: @current_board.friends %>
@@ -56,4 +54,6 @@
   <%= f.input :comment %>
   <%= f.button :submit, "Add" %>
 <% end %>
+
+<%= subscribe_to @path %>
 
