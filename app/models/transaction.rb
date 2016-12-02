@@ -18,12 +18,24 @@ class Transaction < ApplicationRecord
     amount = self.amountint + dec
   end
 
-  def div_class
-    c = ''
-    if self.date
-      c = self.date.year.to_s + self.date.month.to_s + self.date.day.to_s
-    end
-    c
+  # def div_data_sort
+  #   c = ''
+  #   if self.date
+  #     c = self.date.year.to_s + self.date.month.to_s + self.date.day.to_s
+  #   end
+  #   c
+  # end
+
+  def get_transaction_year
+    self.date ? self.date.year : 9999
+  end
+
+  def get_transaction_month
+    self.date ? self.date.month : 12
+  end
+
+  def get_transaction_day
+    self.date ? self.date.day : 31
   end
 
   private

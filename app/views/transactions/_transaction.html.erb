@@ -1,5 +1,14 @@
-<li data-date-sort="<%= transaction.div_class %>">
-  <%= transaction.payer.name %> paid <%= transaction.amount %>
-  <%= transaction.date if transaction.date %>
-  <%= transaction.comment if transaction.comment %>
-</li>
+<div class="transaction">
+  <div class="transaction_date">
+    <%= transaction.date if transaction.date %>
+  </div>
+  <div class="transaction_payer">
+    <%= transaction.payer.name %>
+  </div>
+  <div class="transaction_amount">
+    <%= transaction.amount %>
+  </div>
+  <div class="transaction_comment">
+    <%= transaction.comment if transaction.comment %>
+  </div>
+</div>
