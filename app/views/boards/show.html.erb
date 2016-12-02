@@ -19,17 +19,26 @@
   <%= f.button :submit, "Add friend" %>
 <% end %>
 
-<% @transactions_content_id = "transactions_content_#{@current_board.id}" %>
-<div id="<%= @transactions_content_id %>">
+<% transactions_content_id = "transactions_content_#{@current_board.id}" %>
+<div id="<%= transactions_content_id %>">
   <% if @current_board.transactions.any? %>
     <%= render @current_board.transactions.order(:date, :created_at) %>
   <% end %>
 </div>
 
+<% transactions_sum_id = "transactions_sum_#{@current_board.id}" %>
+<div id="<%= transactions_sum_id %>"></div>
+<% s = 0 %>
+<% @current_board.transactions.each do |t| %>
+  <% s += (t.amountint * 100 + t.amountdec) %>
+<% end %>
+<% s /= 100.0 %>
+<div>ruby calc: <%= s %></div>
+
 <%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
   <%= f.input :payer, collection: @current_board.friends %>
-  <%= f.input :amountint %>
-  <%= f.input :amountdec, input_html: { maxlength: 2 } %>
+  <%= f.input :amountint, input_html: { min: '0'} %>
+  <%= f.input :amountdec, input_html: { maxlength: 2, min: '0', max: '99'  } %>
   <%= f.input :date, as: :string, include_blank: :true, input_html: { class: "datepicker" } %>
   <%= f.input :comment %>
   <%= f.button :submit, "Add" %>
@@ -47,13 +56,15 @@
 
 <%= simple_form_for [@current_board, @new_credit], method: :post, remote: true do |f| %>
   <%= f.input :creditor, collection: @current_board.friends %>
-  <%= f.input :amountint %>
-  <%= f.input :amountdec, input_html: { maxlength: 2 } %>
+  <%= f.input :amountint, input_html: { min: '0'} %>
+  <%= f.input :amountdec, input_html: { maxlength: 2, min: '0', max: '99' } %>
   <%= f.input :debtor, collection: @current_board.friends %>
   <%= f.input :date, as: :string, include_blank: :true, input_html: { class: "datepicker" } %>
   <%= f.input :comment %>
   <%= f.button :submit, "Add" %>
 <% end %>
 
+<script>
+  sumBoard(<%= @current_board.id %>);
+</script>
 <%= subscribe_to @path %>
-
