@@ -1,0 +1,15 @@
+.transaction {
+  display: flex;
+  .transaction_date {
+    width: 15%;
+  }
+  .transaction_payer {
+    width: 15%;
+  }
+  .transaction_amount {
+    width: 15%;
+  }
+  .transaction_comment {
+    width: 15%;
+  }
+}

@@ -10,6 +10,7 @@ gem 'devise', github: 'plataformatec/devise'
 gem 'redis'
 gem 'private_pub'
 gem 'thin'
+gem 'coffee-rails'
 
 gem 'sass-rails'
 gem 'jquery-rails'
