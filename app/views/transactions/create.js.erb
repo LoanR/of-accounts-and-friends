@@ -8,8 +8,8 @@
     var child = tCount;
   } else {
     for (var i = tCount; i > 0; i--) {
-      var currentTDateTxt = $('.transaction:nth-child(' + i + ') .transaction_date').text();
-      if ( !currentTDateTxt ) {
+      var currentTDateTxt = $('.transaction:nth-child(' + i + ') .transaction_date').text().replace(/[^\S]/g,'');
+      if ( !currentTDateTxt || currentTDateTxt == '') {
         currentTDateTxt = '9999-12-31'
       }
       var newTDate = new Date('<%= @new_transaction.get_transaction_year %>-<%= @new_transaction.get_transaction_month %>-<%= @new_transaction.get_transaction_day %>');
