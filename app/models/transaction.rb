@@ -8,6 +8,7 @@ class Transaction < ApplicationRecord
   validates_length_of :amountdec, maximum: 2
 
   validate :money_or_cents
+  validate :positive_transaction
 
   # validates :date, presence: true
 
@@ -43,6 +44,12 @@ class Transaction < ApplicationRecord
   def money_or_cents
     if amountint == 0 && amountdec == 0
       errors.add(:base, "The transaction is missing a value")
+    end
+  end
+
+  def positive_transaction
+    if amountint < 0 || amountdec < 0
+      errors.add(:base, "The transaction cannot be negative")
     end
   end
 

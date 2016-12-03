@@ -1,40 +1,40 @@
 <% publish_to @path do %>
-  var boardId = <%= @new_transaction.board.id %>;
-  var id = 'transactions_content_' + boardId;
-
-  var newTDate = new Date('<%= @new_transaction.get_transaction_year %>-<%= @new_transaction.get_transaction_month %>-<%= @new_transaction.get_transaction_day %>');
-  var refDate = new Date('1970-01-01');
   var tCount = <%= @current_board.transactions.count %>;
-  console.log(tCount);
-  console.log(newTDate);
-  console.log(refDate);
+  var boardIdSelector = '#transactions_content_<%= @new_transaction.board.id %>';
+
   if (tCount == 1) {
-    $('#'+id).append("<%= j render(@new_transaction) %>");
+    // if first line of the board transactions
+    $(boardIdSelector).append("<%= j render(@new_transaction) %>");
+    var child = tCount;
   } else {
     for (var i = tCount; i > 0; i--) {
-      console.log(i);
-      var currentTDateTxt = $('.transaction:nth-child(' + i + ') .transaction_date').text();
-      console.log(currentTDateTxt);
-      if ( !currentTDateTxt ) {
-        console.log('date = rien');
+      var currentTDateTxt = $('.transaction:nth-child(' + i + ') .transaction_date').text().replace(/[^\S]/g,'');
+      if ( !currentTDateTxt || currentTDateTxt == '') {
         currentTDateTxt = '9999-12-31'
       }
-      var currentTDate = new Date(currentTDateTxt);
-      console.log(currentTDate);
-      console.log(newTDate);
+      var newTDate = (new Date('<%= @new_transaction.get_transaction_year %>-<%= @new_transaction.get_transaction_month %>-<%= @new_transaction.get_transaction_day %>')).getTime();
+      var currentTDate = (new Date(currentTDateTxt)).getTime();
+      // console.log(currentTDate)
       if (newTDate >= currentTDate) {
-        console.log('new plus vieux que analysé')
         if (i == tCount) {
-          $('#'+id).append("<%= j render(@new_transaction) %>");
+          // new entry at last place
+          $(boardIdSelector).append("<%= j render(@new_transaction) %>");
+          var child = tCount;
           break;
         }
+        // new entry inside board
         $('.transaction:nth-child(' + i + ')').after("<%= j render(@new_transaction) %>");
+        var child = i + 1;
         break;
       }
       if (i == 1) {
-        $('#'+id).prepend("<%= j render(@new_transaction) %>");
+        // new entry at top, because it is the oldest
+        $(boardIdSelector).prepend("<%= j render(@new_transaction) %>");
+        var child = 1;
         break;
       }
     }
   }
+  $('.transaction:nth-child(' + child + ')').hide().slideDown();
+  addTransaction(<%= @new_transaction.board.id %>, child);
 <% end %>
