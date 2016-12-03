@@ -35,5 +35,6 @@
       }
     }
   }
+  $('.transaction:nth-child(' + child + ')').hide().slideDown();
   addTransaction(<%= @new_transaction.board.id %>, child);
 <% end %>
