@@ -10,30 +10,22 @@
   <%= f.button :submit, "Give access" %>
 <% end %>
 
-<% @current_board.friends.each do |friend| %>
-  <%= friend.name %>
-<% end %>
-
 <%= simple_form_for [@current_board, @new_friend], method: :post do |f| %>
   <%= f.input :name %>
   <%= f.button :submit, "Add friend" %>
 <% end %>
 
-<% transactions_content_id = "transactions_content_#{@current_board.id}" %>
-<div id="<%= transactions_content_id %>">
+<div id="transactions_content_<%= @current_board.id %>">
   <% if @current_board.transactions.any? %>
     <%= render @current_board.transactions.order(:date, :created_at) %>
   <% end %>
 </div>
 
-<% transactions_sum_id = "transactions_sum_#{@current_board.id}" %>
-<div id="<%= transactions_sum_id %>"></div>
-<% s = 0 %>
-<% @current_board.transactions.each do |t| %>
-  <% s += (t.amountint * 100 + t.amountdec) %>
-<% end %>
-<% s /= 100.0 %>
-<div>ruby calc: <%= s %></div>
+<% int, dec = @current_board.board_sum %>
+<div id="transactions_sum_<%= @current_board.id %>"><%= int %>, <%= dec %></div>
+<% int, dec, bit = @current_board.average_expenses %>
+<div id="average_for_<%= @current_board.id %>"><span id="real_for_<%= @current_board.id %>"><%= int %>, <%= dec %></span><span id="bit_for_<%= @current_board.id %>"><%= bit %></span></div>
+
 
 <%= simple_form_for [@current_board, @new_transaction], method: :post, remote: true do |f| %>
   <%= f.input :payer, collection: @current_board.friends %>
@@ -64,7 +56,10 @@
   <%= f.button :submit, "Add" %>
 <% end %>
 
-<script>
-  sumBoard(<%= @current_board.id %>);
-</script>
+<div id="friends_board_<%= @current_board.id %>">
+  <% if @current_board.friends.any? %>
+    <%= render @current_board.friends %>
+  <% end %>
+</div>
+
 <%= subscribe_to @path %>

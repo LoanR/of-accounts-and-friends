@@ -13,19 +13,25 @@ class Transaction < ApplicationRecord
   # validates :date, presence: true
 
   def amount
-    dec = 0.0
-    self.amountdec ? dec = self.amountdec : dec = 0.0
-    dec /= 100.0
-    amount = self.amountint + dec
+
+    total_amount_str = sprintf "%02d", (self.amountint * 100 + self.amountdec)
+    int = total_amount_str.split(/\d{2}\z/).join.reverse.gsub(/(\d{3})(?=.)/, '\1 \2').reverse
+    int = int == '' ? '0' : int
+    dec = total_amount_str.split(//).last(2).join
+    return int, dec
+    # dec = 0.0
+    # self.amountdec ? dec = self.amountdec : dec = 0.0
+    # dec /= 100.0
+    # amount = self.amountint + dec
   end
 
-  # def div_data_sort
-  #   c = ''
-  #   if self.date
-  #     c = self.date.year.to_s + self.date.month.to_s + self.date.day.to_s
-  #   end
-  #   c
-  # end
+  def get_friends_id
+    friends = []
+    Board.find_by_id(self.board.id).friends.each do |friend|
+      friends << friend.id
+    end
+    friends
+  end
 
   def get_transaction_year
     self.date ? self.date.year : 9999
