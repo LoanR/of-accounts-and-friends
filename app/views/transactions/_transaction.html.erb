@@ -2,11 +2,12 @@
   <div class="transaction_date">
     <%= transaction.date if transaction.date %>
   </div>
-  <div class="transaction_payer">
+  <div class="transaction_payer payer_<%= transaction.payer.id %>">
     <%= transaction.payer.name %>
   </div>
-  <div class="transaction_amount">
-    <%= transaction.amount %>
+  <div class="transaction_amount" id="transaction_<%= transaction.id %>_amount">
+    <% int, dec = transaction.amount %>
+    <%= int %>, <%= dec %>
   </div>
   <div class="transaction_comment">
     <%= transaction.comment if transaction.comment %>
