@@ -53,4 +53,12 @@ class Board < ApplicationRecord
     return int, dec, bit
   end
 
+  def get_friends_ids
+    friends_ids = []
+    self.friends.each do |friend|
+      friends_ids << friend.id
+    end
+    friends_ids
+  end
+
 end

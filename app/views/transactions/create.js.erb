@@ -41,5 +41,5 @@
   addTransaction(<%= @new_transaction.board.id %>, <%= @new_transaction.id %>);
   addToFriendTotal(<%= @new_transaction.payer.id %>, <%= @new_transaction.board.id %>, <%= @new_transaction.id %>);
   changeBoardAverage(<%= @new_transaction.board.id %>, <%= @new_transaction.get_friends_id %>);
-  friendsBalance(<%= @new_transaction.board.id %>, <%= @new_transaction.get_friends_id %>)
+  friendsBalance(<%= @new_transaction.board.id %>, <%= @new_transaction.get_friends_id %>);
 <% end %>

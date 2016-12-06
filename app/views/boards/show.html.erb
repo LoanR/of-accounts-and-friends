@@ -10,7 +10,7 @@
   <%= f.button :submit, "Give access" %>
 <% end %>
 
-<%= simple_form_for [@current_board, @new_friend], method: :post do |f| %>
+<%= simple_form_for [@current_board, @new_friend], method: :post, remote: true do |f| %>
   <%= f.input :name %>
   <%= f.button :submit, "Add friend" %>
 <% end %>
