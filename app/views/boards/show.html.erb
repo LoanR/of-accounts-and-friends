@@ -1,11 +1,12 @@
 <h3><%= @current_board.title %></h3>
 
-<% @current_board.users.each do |user| %>
-  <%= user.username %>
-<% end %>
+<div id="board_<%= @current_board.id %>_users">
+  <% if @current_board.accounts.any? %>
+    <%= render @current_board.accounts %>
+  <% end %>
+</div>
 
-<%= simple_form_for @new_account, method: :post do |f| %>
-  <%= f.input :board,as: :hidden, :input_html => { value: "#{@current_board.id}" } %>
+<%= simple_form_for [@current_board, @new_account], method: :post, remote: true do |f| %>
   <%= f.input :user %>
   <%= f.button :submit, "Give access" %>
 <% end %>
@@ -56,7 +57,7 @@
   <%= f.button :submit, "Add" %>
 <% end %>
 
-<div id="friends_board_<%= @current_board.id %>">
+<div id="board_<%= @current_board.id %>_friends">
   <% if @current_board.friends.any? %>
     <%= render @current_board.friends %>
   <% end %>

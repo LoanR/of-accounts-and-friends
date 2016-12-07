@@ -25,14 +25,6 @@ class Transaction < ApplicationRecord
     # amount = self.amountint + dec
   end
 
-  def get_friends_id
-    friends = []
-    Board.find_by_id(self.board.id).friends.each do |friend|
-      friends << friend.id
-    end
-    friends
-  end
-
   def get_transaction_year
     self.date ? self.date.year : 9999
   end

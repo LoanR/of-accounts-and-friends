@@ -1,0 +1,12 @@
+<% publish_to @path do %>
+  var newUserNum = <%= @new_account.board.accounts.count %> + 1;
+  $('#board_<%= @new_account.board.id %>_users').append("<%= j render(@new_account) %>");
+  $('.account:nth-child(' + newUserNum + ')').hide().slideDown();
+
+  var newFriendNum = <%= @new_account.board.friends.count %> + 1;
+  $('#board_<%= @new_friend.board.id %>_friends').append("<%= j render(@new_friend) %>");
+  $('.friend:nth-child(' + newFriendNum + ')').hide().slideDown();
+
+  changeBoardAverage(<%= @new_account.board.id %>, <%= @new_account.board.get_friends_ids %>);
+  friendsBalance(<%= @new_account.board.id %>, <%= @new_account.board.get_friends_ids %>);
+<% end %>

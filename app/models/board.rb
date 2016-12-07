@@ -1,9 +1,9 @@
 class Board < ApplicationRecord
   has_many :accounts
   has_many :users, through: :accounts
-  has_many :friends
-  has_many :transactions, through: :friends
-  has_many :credits, through: :friends
+  has_many :friends, dependent: :destroy
+  has_many :transactions, through: :friends, dependent: :destroy
+  has_many :credits, through: :friends, dependent: :destroy
 
   validates :title, presence: true
 

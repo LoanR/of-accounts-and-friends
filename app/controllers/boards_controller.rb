@@ -19,6 +19,10 @@ class BoardsController < ApplicationController
     new_account.user_id = current_user.id
     new_account.board_id = @new_board.id
     new_account.save
+    new_friend = Friend.new
+    new_friend.name = current_user.username
+    new_friend.board = @new_board
+    new_friend.save
     redirect_to board_path(@new_board.id)
   end
 

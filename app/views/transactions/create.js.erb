@@ -1,5 +1,5 @@
 <% publish_to @path do %>
-  var tCount = <%= @current_board.transactions.count %>;
+  var tCount = <%= @new_transaction.board.transactions.count %>;
   var boardIdSelector = '#transactions_content_<%= @new_transaction.board.id %>';
 
   if (tCount == 1) {
@@ -37,9 +37,8 @@
   }
   $('.transaction:nth-child(' + child + ')').hide().slideDown();
 
-  // sumBoard(<%= @new_transaction.board.id %>);
   addTransaction(<%= @new_transaction.board.id %>, <%= @new_transaction.id %>);
   addToFriendTotal(<%= @new_transaction.payer.id %>, <%= @new_transaction.board.id %>, <%= @new_transaction.id %>);
-  changeBoardAverage(<%= @new_transaction.board.id %>, <%= @new_transaction.get_friends_id %>);
-  friendsBalance(<%= @new_transaction.board.id %>, <%= @new_transaction.get_friends_id %>);
+  changeBoardAverage(<%= @new_transaction.board.id %>, <%= @new_transaction.board.get_friends_ids %>);
+  friendsBalance(<%= @new_transaction.board.id %>, <%= @new_transaction.board.get_friends_ids %>);
 <% end %>
