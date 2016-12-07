@@ -5,6 +5,8 @@ class Friend < ApplicationRecord
   has_many :credits, foreign_key: :debtor_id, dependent: :destroy
 
   validates :name, presence: true
+  validates_uniqueness_of :name, scope: :board
+
 
   def transactions_value
     val = 0
