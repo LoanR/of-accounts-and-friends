@@ -15,6 +15,4 @@ class User < ApplicationRecord
     boards
   end
 
-
-
 end

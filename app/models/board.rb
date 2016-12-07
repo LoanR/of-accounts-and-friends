@@ -1,9 +1,9 @@
 class Board < ApplicationRecord
   has_many :accounts
   has_many :users, through: :accounts
-  has_many :friends
-  has_many :transactions, through: :friends
-  has_many :credits, through: :friends
+  has_many :friends, dependent: :destroy
+  has_many :transactions, through: :friends, dependent: :destroy
+  has_many :credits, through: :friends, dependent: :destroy
 
   validates :title, presence: true
 
@@ -51,6 +51,14 @@ class Board < ApplicationRecord
     dec = average.split(//)[-3, 2].join
     bit = average.split(//).last()
     return int, dec, bit
+  end
+
+  def get_friends_ids
+    friends_ids = []
+    self.friends.each do |friend|
+      friends_ids << friend.id
+    end
+    friends_ids
   end
 
 end
