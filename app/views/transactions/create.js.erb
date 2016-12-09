@@ -1,4 +1,14 @@
 <% publish_to @path do %>
+  $("#transaction_payer_<%= @current_board.id %>").blur();
+  $("#transaction_payer_<%= @current_board.id %>").val('');
+  $("#transaction_amountint_<%= @current_board.id %>").blur();
+  $("#transaction_amountint_<%= @current_board.id %>").val('');
+  $("#transaction_amountdec_<%= @current_board.id %>").blur();
+  $("#transaction_amountdec_<%= @current_board.id %>").val('');
+  $("#transaction_date_<%= @current_board.id %>").blur();
+  $("#transaction_date_<%= @current_board.id %>").val('');
+  $("#transaction_comment_<%= @current_board.id %>").blur();
+  $("#transaction_comment_<%= @current_board.id %>").val('');
   var tCount = <%= @new_transaction.board.transactions.count %>;
   var boardIdSelector = '#transactions_content_<%= @new_transaction.board.id %>';
 
