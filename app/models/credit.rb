@@ -1,6 +1,7 @@
 class Credit < ApplicationRecord
   belongs_to :creditor, class_name: 'Friend'
   belongs_to :debtor, class_name: 'Friend'
+  belongs_to :creator, class_name: 'User'
   belongs_to :board
 
   validates :creditor, presence: true

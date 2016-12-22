@@ -14,14 +14,17 @@ class BoardsController < ApplicationController
 
   def create
     @new_board = current_user.boards.new(board_params)
+    # raise
     @new_board.save
     new_account = Account.new
     new_account.user_id = current_user.id
     new_account.board_id = @new_board.id
+    new_account.creator = current_user
     new_account.save
     new_friend = Friend.new
     new_friend.name = current_user.username
     new_friend.board = @new_board
+    new_friend.creator = current_user
     new_friend.save
     redirect_to board_path(@new_board.id)
   end

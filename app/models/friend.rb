@@ -1,5 +1,6 @@
 class Friend < ApplicationRecord
   belongs_to :board
+  belongs_to :creator, class_name: 'User'
   has_many :transactions, foreign_key: :payer_id, dependent: :destroy
   has_many :credits, foreign_key: :creditor_id, dependent: :destroy
   has_many :credits, foreign_key: :debtor_id, dependent: :destroy

@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 20160923153226) do
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "board_id"
+    t.integer  "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_accounts_on_board_id", using: :btree
+    t.index ["creator_id"], name: "index_accounts_on_creator_id", using: :btree
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
@@ -34,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.integer  "board_id"
     t.integer  "creditor_id"
     t.integer  "debtor_id"
+    t.integer  "creator_id"
     t.date     "date"
     t.integer  "amountint"
     t.integer  "amountdec"
@@ -41,21 +44,25 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["board_id"], name: "index_credits_on_board_id", using: :btree
+    t.index ["creator_id"], name: "index_credits_on_creator_id", using: :btree
     t.index ["creditor_id"], name: "index_credits_on_creditor_id", using: :btree
     t.index ["debtor_id"], name: "index_credits_on_debtor_id", using: :btree
   end
 
   create_table "friends", force: :cascade do |t|
     t.integer  "board_id"
+    t.integer  "creator_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_friends_on_board_id", using: :btree
+    t.index ["creator_id"], name: "index_friends_on_creator_id", using: :btree
   end
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "board_id"
     t.integer  "payer_id"
+    t.integer  "creator_id"
     t.date     "date"
     t.integer  "amountint"
     t.integer  "amountdec"
@@ -63,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_transactions_on_board_id", using: :btree
+    t.index ["creator_id"], name: "index_transactions_on_creator_id", using: :btree
     t.index ["payer_id"], name: "index_transactions_on_payer_id", using: :btree
   end
 

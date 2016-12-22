@@ -1,5 +1,6 @@
 class Transaction < ApplicationRecord
   belongs_to :payer, class_name: 'Friend'
+  belongs_to :creator, class_name: 'User'
   belongs_to :board
 
   validates :payer, presence: true
