@@ -37,15 +37,11 @@
   <%= f.button :submit, "Add" %>
 <% end %>
 
-<ul>
-  <% @current_board.credits.order(:date, :created_at).each do |credit| %>
-    <li>
-      <%= credit.creditor.name %> lend <%= credit.amount %> to <%= credit.debtor.name %>
-      <%= credit.date if credit.date %>
-      <%= credit.comment if credit.comment %>
-    </li>
+<div id="credits_content_<%= @current_board.id %>">
+  <% if @current_board.credits.any? %>
+    <%= render @current_board.credits.order(:date, :created_at) %>
   <% end %>
-</ul>
+</div>
 
 <%= simple_form_for [@current_board, @new_credit], method: :post, remote: true do |f| %>
   <%= f.input :creditor, collection: @current_board.friends %>
