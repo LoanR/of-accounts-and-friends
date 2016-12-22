@@ -5,6 +5,7 @@ class TransactionsController < ApplicationController
     @current_board = Board.find(params[:board_id])
     @new_transaction.board = @current_board
     @new_transaction.payer = Friend.find(transaction_params[:payer])
+    @new_transaction.creator = current_user
     @new_transaction.amountint = transaction_params[:amountint].to_i
     dec = transaction_params[:amountdec] == '' ? 0 : transaction_params[:amountdec]
     @new_transaction.amountdec = (sprintf "%02d", dec).to_i

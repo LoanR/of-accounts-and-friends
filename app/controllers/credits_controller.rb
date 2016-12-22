@@ -6,6 +6,7 @@ class CreditsController < ApplicationController
     @new_credit.board = current_board
     @new_credit.creditor = Friend.find(transaction_params[:creditor])
     @new_credit.debtor = Friend.find(transaction_params[:debtor])
+    @new_credit.creator = current_user
     @new_credit.amountint = transaction_params[:amountint].to_i
     @new_credit.amountdec = transaction_params[:amountdec].to_i
     @new_credit.date = transaction_params[:date]

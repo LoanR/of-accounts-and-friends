@@ -4,7 +4,6 @@
 <% @boards.each do |board| %>
   <%= link_to "#{board.title}", board %>
 <% end %>
-
 <%= simple_form_for(@new_board) do |f| %>
   <%= f.error_notification %>
   <%= f.input :title %>

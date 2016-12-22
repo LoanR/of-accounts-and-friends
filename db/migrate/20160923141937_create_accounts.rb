@@ -3,6 +3,7 @@ class CreateAccounts < ActiveRecord::Migration[5.0]
     create_table :accounts do |t|
       t.references :user, foreign_key: true
       t.references :board, foreign_key: true
+      t.references :creator
 
       t.timestamps
     end

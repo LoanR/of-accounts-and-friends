@@ -4,6 +4,7 @@ class FriendsController < ApplicationController
     @current_board = Board.find(params[:board_id])
     @new_friend.board = @current_board
     @new_friend.name = friend_params[:name]
+    @new_friend.creator = current_user
     @new_friend.save
     @path = board_path(@current_board)
   end

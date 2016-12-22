@@ -4,6 +4,7 @@ class CreateCredits < ActiveRecord::Migration[5.0]
       t.references :board, foreign_key: true
       t.references :creditor
       t.references :debtor
+      t.references :creator
       t.date :date
       t.integer :amountint
       t.integer :amountdec

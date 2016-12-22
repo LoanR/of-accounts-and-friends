@@ -1,4 +1,6 @@
 <% publish_to @path do %>
+  $("#account_user_<%= current_user.id %>").blur();
+  $("#account_user_<%= current_user.id %>").val('');
   if (<%= @new_account.persisted? %>) {
     var newUserNum = <%= @new_account.board.accounts.count %>;
     $('#board_<%= @new_account.board.id %>_users').append("<%= j render(@new_account) %>");

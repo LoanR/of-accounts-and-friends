@@ -1,4 +1,6 @@
 <% publish_to @path do %>
+  $("#friend_name_<%= current_user.id %>").blur();
+  $("#friend_name_<%= current_user.id %>").val('');
   if (<%= @new_friend.persisted? %>) {
     var newFriendNum = <%= @new_friend.board.friends.count %> + 1;
     $('#board_<%= @new_friend.board.id %>_friends').append("<%= j render(@new_friend) %>");
