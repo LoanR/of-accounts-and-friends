@@ -14,7 +14,7 @@
   var tCount = <%= @new_credit.board.credits.count %>;
   var boardIdSelector = '#credits_content_<%= @new_credit.board.id %>';
   if (tCount == 1) {
-    // if first line of the board transactions
+    // if first line of the board credits
     $(boardIdSelector).append("<%= j render(@new_credit) %>");
     var child = tCount;
   } else {
@@ -25,7 +25,6 @@
       }
       var newTDate = (new Date('<%= @new_credit.get_credit_year %>-<%= @new_credit.get_credit_month %>-<%= @new_credit.get_credit_day %>')).getTime();
       var currentTDate = (new Date(currentTDateTxt)).getTime();
-      // console.log(currentTDate)
       if (newTDate >= currentTDate) {
         if (i == tCount) {
           // new entry at last place

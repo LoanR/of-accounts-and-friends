@@ -44,12 +44,12 @@
 </div>
 
 <%= simple_form_for [@current_board, @new_credit], method: :post, remote: true do |f| %>
-  <%= f.input :creditor, collection: @current_board.friends %>
-  <%= f.input :amountint, input_html: { min: '0'} %>
-  <%= f.input :amountdec, input_html: { maxlength: 2, min: '0', max: '99' } %>
-  <%= f.input :debtor, collection: @current_board.friends %>
-  <%= f.input :date, as: :string, include_blank: :true, input_html: { class: "datepicker" } %>
-  <%= f.input :comment %>
+  <%= f.input :creditor, collection: @current_board.friends, input_html: { id: "credit_creditor_" + current_user.id.to_s } %>
+  <%= f.input :amountint, input_html: { min: '0', id: "credit_amountint_" + current_user.id.to_s } %>
+  <%= f.input :amountdec, input_html: { maxlength: 2, min: '0', max: '99', id: "credit_amountdec_" + current_user.id.to_s } %>
+  <%= f.input :debtor, collection: @current_board.friends, input_html: { id: "credit_debtor_" + current_user.id.to_s } %>
+  <%= f.input :date, as: :string, include_blank: :true, input_html: { class: "datepicker", id: "credit_date_" + current_user.id.to_s } %>
+  <%= f.input :comment, input_html: { id: "transaction_comment_" + current_user.id.to_s } %>
   <%= f.button :submit, "Add" %>
 <% end %>
 
