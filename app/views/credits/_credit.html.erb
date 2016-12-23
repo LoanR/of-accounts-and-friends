@@ -1,0 +1,18 @@
+<div class="credit">
+  <div class="credit_date">
+    <%= credit.date if credit.date %>
+  </div>
+  <div class="credit_creditor creditor_<%= credit.creditor.id %>">
+    <%= credit.creditor.name %>
+  </div>
+  <div class="credit_debtor debtor_<%= credit.debtor.id %>">
+    <%= credit.debtor.name %>
+  </div>
+  <div class="credit_amount" id="credit_<%= credit.id %>_amount">
+    <% int, dec = credit.amount %>
+    <%= int %>, <%= dec %>
+  </div>
+  <div class="credit_comment">
+    <%= credit.comment if credit.comment %>
+  </div>
+</div>

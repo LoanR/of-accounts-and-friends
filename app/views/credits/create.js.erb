@@ -1,0 +1,50 @@
+<% publish_to @path do %>
+  $("#credit_creditor_<%= current_user.id %>").blur();
+  $("#credit_creditor_<%= current_user.id %>").val('');
+  $("#credit_debtor_<%= current_user.id %>").blur();
+  $("#credit_debtor_<%= current_user.id %>").val('');
+  $("#credit_amountint_<%= current_user.id %>").blur();
+  $("#credit_amountint_<%= current_user.id %>").val('');
+  $("#credit_amountdec_<%= current_user.id %>").blur();
+  $("#credit_amountdec_<%= current_user.id %>").val('');
+  $("#credit_date_<%= current_user.id %>").blur();
+  $("#credit_date_<%= current_user.id %>").val('');
+  $("#credit_comment_<%= current_user.id %>").blur();
+  $("#credit_comment_<%= current_user.id %>").val('');
+  var tCount = <%= @new_credit.board.credits.count %>;
+  var boardIdSelector = '#credits_content_<%= @new_credit.board.id %>';
+  if (tCount == 1) {
+    // if first line of the board credits
+    $(boardIdSelector).append("<%= j render(@new_credit) %>");
+    var child = tCount;
+  } else {
+    for (var i = tCount; i > 0; i--) {
+      var currentTDateTxt = $('.credit:nth-child(' + i + ') .credit_date').text().replace(/[^\S]/g,'');
+      if ( !currentTDateTxt || currentTDateTxt == '') {
+        currentTDateTxt = '9999-12-31'
+      }
+      var newTDate = (new Date('<%= @new_credit.get_credit_year %>-<%= @new_credit.get_credit_month %>-<%= @new_credit.get_credit_day %>')).getTime();
+      var currentTDate = (new Date(currentTDateTxt)).getTime();
+      if (newTDate >= currentTDate) {
+        if (i == tCount) {
+          // new entry at last place
+          $(boardIdSelector).append("<%= j render(@new_credit) %>");
+          var child = tCount;
+          break;
+        }
+        // new entry inside board
+        $('.credit:nth-child(' + i + ')').after("<%= j render(@new_credit) %>");
+        var child = i + 1;
+        break;
+      }
+      if (i == 1) {
+        // new entry at top, because it is the oldest
+        $(boardIdSelector).prepend("<%= j render(@new_credit) %>");
+        var child = 1;
+        break;
+      }
+    }
+  }
+  $('.credit:nth-child(' + child + ')').hide().slideDown();
+
+<% end %>

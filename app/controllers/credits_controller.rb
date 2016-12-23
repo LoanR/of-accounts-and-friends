@@ -2,17 +2,20 @@ class CreditsController < ApplicationController
 
   def create
     @new_credit = Credit.new
-    current_board = Board.find(params[:board_id])
-    @new_credit.board = current_board
-    @new_credit.creditor = Friend.find(transaction_params[:creditor])
-    @new_credit.debtor = Friend.find(transaction_params[:debtor])
+    @current_board = Board.find(params[:board_id])
+    @new_credit.board = @current_board
+    @new_credit.creditor = Friend.find(credit_params[:creditor])
+    @new_credit.debtor = Friend.find(credit_params[:debtor])
     @new_credit.creator = current_user
-    @new_credit.amountint = transaction_params[:amountint].to_i
-    @new_credit.amountdec = transaction_params[:amountdec].to_i
-    @new_credit.date = transaction_params[:date]
-    @new_credit.comment = transaction_params[:comment]
+    @new_credit.amountint = credit_params[:amountint].to_i
+    dec = credit_params[:amountdec] == '' ? 0 : credit_params[:amountdec]
+    @new_credit.amountdec = (sprintf "%02d", dec).to_i
+    @new_credit.date = credit_params[:date]
+    @new_credit.comment = credit_params[:comment]
     # raise
     @new_credit.save
+    puts @new_credit
+    @path = board_path(@current_board)
   end
 
   def destroy
@@ -20,7 +23,7 @@ class CreditsController < ApplicationController
 
   private
 
-  def transaction_params
+  def credit_params
     params.require(:credit).permit(:creditor, :debtor, :amountint, :amountdec, :date, :comment)
   end
 
