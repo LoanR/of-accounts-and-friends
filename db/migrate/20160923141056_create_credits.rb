@@ -8,7 +8,7 @@ class CreateCredits < ActiveRecord::Migration[5.0]
       t.date :date
       t.integer :amountint
       t.integer :amountdec
-      t.text :comment
+      t.string :comment
 
       t.timestamps
     end

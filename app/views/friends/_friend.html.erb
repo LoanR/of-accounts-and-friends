@@ -2,8 +2,20 @@
   <div class="friend_name">
     <%= friend.name %>
   </div>
-  <% int, dec = friend.transactions_value %>
-  <div id="friend_<%= friend.id %>_total_expenses_for_<%= @current_board.id %>"><%= int %>, <%= dec %></div>
-  <% int, dec, bit = friend.balance %>
-  <div id="friend_<%= friend.id %>_balance_for_<%= @current_board.id %>"><span id="friend_<%= friend.id %>_real_for_<%= @current_board.id %>"><%= int %>, <%= dec %></span><span id="friend_<%= friend.id %>_bit_for_<%= @current_board.id %>"><%= bit %></span></div>
+  <div id="friend_<%= friend.id %>_total_expenses_for_<%= @current_board.id %>">
+    <% int, dec = friend.transactions_value %>
+    <%= int %>, <%= dec %>
+  </div>
+  <div class="friend_<%= friend.id %>_loan">
+    <% int, dec = friend.credit_value(friend.loans) %>
+    <%= int %>, <%= dec %>
+  </div>
+  <div id="friend_<%= friend.id %>_balance_for_<%= @current_board.id %>">
+    <% int, dec, bit = friend.balance %>
+    <span id="friend_<%= friend.id %>_real_for_<%= @current_board.id %>"><%= int %>, <%= dec %></span><span id="friend_<%= friend.id %>_bit_for_<%= @current_board.id %>"><%= bit %></span>
+  </div>
+  <div class="friend_<%= friend.id %>_debt">
+    <% int, dec = friend.credit_value(friend.debts) %>
+    <%= int %>, <%= dec %>
+  </div>
 </div>

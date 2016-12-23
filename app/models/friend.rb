@@ -47,4 +47,31 @@ class Friend < ApplicationRecord
     return int, dec, bit
   end
 
+  def loans
+    loans = Credit.where(creditor: self)
+  end
+
+  def debts
+    debts = Credit.where(debtor: self)
+  end
+
+  def credit_value(credits)
+    amount = 0
+    credits.each do |credit|
+      amount += credit.amountint * 100 + credit.amountdec
+    end
+    amount_str = sprintf "%02d", amount
+    int = amount_str.split(/\d{2}\z/).join.reverse.gsub(/(\d{3})(?=.)/, '\1 \2').reverse
+    int = int == '' ? '0' : int
+    dec = amount_str.split(//).last(2).join
+    return int, dec
+  end
+
+  # def loans_value
+  #   int = 0
+  #   dec = 0
+  #   loans = Credit.where(creditor: self)
+  #   loans.each do |loan|
+  # end
+
 end

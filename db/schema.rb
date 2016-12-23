@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.date     "date"
     t.integer  "amountint"
     t.integer  "amountdec"
-    t.text     "comment"
+    t.string   "comment"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["board_id"], name: "index_credits_on_board_id", using: :btree
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160923153226) do
     t.date     "date"
     t.integer  "amountint"
     t.integer  "amountdec"
-    t.text     "comment"
+    t.string   "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_transactions_on_board_id", using: :btree

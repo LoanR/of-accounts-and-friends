@@ -8,7 +8,7 @@
   <div class="credit_debtor debtor_<%= credit.debtor.id %>">
     <%= credit.debtor.name %>
   </div>
-  <div class="credit_amount" id="credit_<%= credit.id %>_amount">
+  <div class="credit_amount_for_<%= credit.debtor.id %> credit_amount_from_<%= credit.creditor.id %>" id="credit_<%= credit.id %>_amount">
     <% int, dec = credit.amount %>
     <%= int %>, <%= dec %>
   </div>
