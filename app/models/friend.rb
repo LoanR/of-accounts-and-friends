@@ -47,24 +47,57 @@ class Friend < ApplicationRecord
     return int, dec, bit
   end
 
-  def loans
-    loans = Credit.where(creditor: self)
+  def credit_balance_with(friend)
+    amount = self.debts_with(friend) - self.loans_with(friend)
   end
 
-  def debts
-    debts = Credit.where(debtor: self)
-  end
-
-  def credit_value(credits)
+  def total_credit_balance
     amount = 0
-    credits.each do |credit|
-      amount += credit.amountint * 100 + credit.amountdec
+    self.board.friends.each do |friend|
+      amount += self.credit_balance_with(friend)
     end
-    amount_str = sprintf "%02d", amount
+    amount
+  end
+
+  def loans_with(friend)
+    amount = 0
+    loans = Credit.where(creditor: self).where(debtor: friend)
+    loans.each do |loan|
+      amount += loan.amountint * 100 + loan.amountdec
+    end
+    amount
+  end
+
+  def debts_with(friend)
+    amount = 0
+    debts = Credit.where(debtor: self).where(creditor: friend)
+    debts.each do |debt|
+      amount += debt.amountint * 100 + debt.amountdec
+    end
+    amount
+  end
+
+  def time100_val_to_s(val)
+    amount_str = sprintf "%02d", val
     int = amount_str.split(/\d{2}\z/).join.reverse.gsub(/(\d{3})(?=.)/, '\1 \2').reverse
     int = int == '' ? '0' : int
     dec = amount_str.split(//).last(2).join
     return int, dec
+  end
+
+  def time1000_val_to_s(val)
+    val = val < 0 ? (sprintf "%04d", val) : (sprintf "%03d", val)
+    int = val.split(/\d{3}\z/).join.reverse.gsub(/(\d{3})(?=.)/, '\1 \2').reverse
+    if int == '-'
+      int = '-0'
+    elsif int == ''
+      int = '0'
+    else
+      int = int
+    end
+    dec = val.split(//)[-3, 2].join
+    bit = val.split(//).last()
+    return int, dec, bit
   end
 
   # def loans_value
